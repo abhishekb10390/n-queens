@@ -245,7 +245,7 @@
       }
       for (var j = 0; j < rows.length; j++) {
         if (this.hasMinorDiagonalConflictAt(j, rows.length - 1) === true) {
-          return true;
+          return true; 
         }
       }
       return false;
