@@ -12,12 +12,21 @@
 
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
-
+//we want to use recursion - 
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
-
+  var makeEmptyMatrix = function(n) {
+    return _(_.range(n)).map(function() {
+      return _(_.range(n)).map(function() {
+        return 0;
+      });
+    });
+  };
+  var solution = makeEmptyMatrix(n);
+  for (var i = 0; i < n; i++) {
+    solution[i][i] = 1;
+  }
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
