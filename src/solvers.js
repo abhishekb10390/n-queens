@@ -56,20 +56,27 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = 0; //fixme
+  var solutionCount = 0;
   var completed = Math.pow(2, n) - 1;
-  var recurse = function(leftDiag, col, rightDiag) {
-    //base case if all squares taken by queens
-    if (col === completed) {
-      solutionCount += 1;
-      return;
-    }
-                                                                                                                                                                                                                                                                                          
   
+  var findNextRow = function(col, ld, rd) {
+    if (col === completed) {
+      solutionCount++;
+    }
 
-
-
-  // };
+    var validSpaces = ~(col|ld|rd) & completed;
+    while (validSpaces) {
+      var candidate = validSpaces & -validSpaces;
+      validSpaces -= candidate;
+      var newCol = candidate | col;
+      var newld = (candidate | ld) >> 1;
+      var newrd = (candidate | rd) << 1;
+      findNextRow(newCol, newld, newrd);
+    } 
+    //1000 | 0000. 1000 >> 0100
+  };
+  findNextRow(0,0,0);
+                                                                                                                                                                                                                                                                                   
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
